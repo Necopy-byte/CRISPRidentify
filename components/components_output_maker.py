@@ -550,7 +550,7 @@ class JsonOutputMaker:
 
 
 class GFFOutputMaker:
-    def __init__(self, result_path, categories, non_array_data, header, list_feature_names):
+    def __init__(self, result_path, categories, non_array_data, list_feature_names):
         self.result_path = result_path
         self.categories = categories
         self.non_array_data = non_array_data
@@ -623,7 +623,7 @@ class GFFOutputMaker:
                 for index, array_index, array, score, feature_info in zip(range(len(arrays)), array_indexes,
                                                                           arrays, scores, features):
                     if "Bona-fide" in self.non_array_data["Strand"]:
-                        strand = self.non_array_data["Strand"]["Bona_fide"][index]
+                        strand = self.non_array_data["Strand"]["Bona-fide"][index]
                     else:
                         strand = "Forward (Orientation was not computed)"
 
@@ -800,7 +800,7 @@ class GFFOutputMaker:
                     f.write(line_repeat)
 
     def _create_gff_complete(self):
-        with open(join(self.gff_folder, "combined.gff"), "w") as f:
+        with open(join(self.result_path, "combined.gff"), "w") as f:
 
             for category_index, category_name in zip([0, 1, 2], ["Bona-fide", "Alternative", "Possible"]):
 

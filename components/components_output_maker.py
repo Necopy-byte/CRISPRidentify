@@ -633,7 +633,7 @@ class GFFOutputMaker:
 
                     crispr_stats = crispr.compute_stats()
                     crispr_start = crispr_stats["start"]
-                    crispr_end = crispr_stats["end"] + 1
+                    crispr_end = crispr_stats["end"]
                     crispr_length = crispr_end - crispr_start + 1
                     consensus = crispr.consensus
                     line_crispr = f"{self.acc_num}\tCRISPRidentify\tbona-fide_array_region\t{crispr_start}\t{crispr_end}\t{crispr_length}\t{strand_sign}\t.\tID=CRISPR{array_index}_{crispr_start}_{crispr_end};Note={consensus};Dbxref=SO:0001459;Ontology_term=CRISPR;Array_quality_score={score}\n"
@@ -644,10 +644,10 @@ class GFFOutputMaker:
                     repeat_starts = crispr.list_repeat_starts
 
                     repeat_starts = [1 + r_s for r_s in repeat_starts]
-                    repeat_ends = [rs + len(repeat) for rs, repeat in zip(repeat_starts, repeats)]
+                    repeat_ends = [rs + (len(repeat) - 1) for rs, repeat in zip(repeat_starts, repeats)]
 
-                    spacers_starts = [r_e + 1 for r_e in repeat_ends[:-1]]
-                    spacers_ends = [s_s + len(s) for s_s, s in zip(spacers_starts, spacers)]
+                    spacers_starts = [1 + r_e for r_e in repeat_ends[:-1]]
+                    spacers_ends = [s_s + (len(s) - 1) for s_s, s in zip(spacers_starts, spacers)]
 
                     repeat_indexes = list(range(1, len(repeats) + 1))
                     spacer_indexes = list(range(1, len(spacers) + 1))

@@ -408,7 +408,7 @@ class SpacerSummaryMaker:
         fasta_path = f"{self.result_path}/Spacers.fasta"
 
         with open(fasta_path, "w") as fasta_file:
-            for category_index, category_name in zip([0, 2], ["Bona-fide", "Possible"]):
+            for category_index, category_name in zip([0], ["Bona-fide"]):
                 for key, crisprs in self.categories[category_index].items():
                     for crispr in crisprs:
                         consensus = crispr[1].consensus
